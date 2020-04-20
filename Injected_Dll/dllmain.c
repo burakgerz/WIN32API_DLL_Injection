@@ -5,7 +5,6 @@ BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ulReasonForCall,
                        LPVOID lpReserved)
 {
-    UNREFERENCED_PARAMETER(hModule);
     UNREFERENCED_PARAMETER(lpReserved);
 
 
@@ -15,7 +14,15 @@ BOOL APIENTRY DllMain( HMODULE hModule,
         {
             while(1)
             {
-                MessageBox(NULL, L"HELLO FROM DLL.", L"HELLO", MB_OK);
+                MessageBox(NULL, L"HELLO FROM DLL\n PRESS ESC TO EXIT", L"HELLO", MB_OK);
+
+                if (GetAsyncKeyState(VK_ESCAPE)) 
+                {
+                    FreeLibraryAndExitThread(hModule, 0);
+                    break;
+                }
+
+                Sleep(10);
             }
 
             break;
